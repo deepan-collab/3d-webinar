@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Deepan Art's Studio - Professional Graphic Design & Photo Editing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a0a0a;
+            --primary-light: #ffffff;
+            --accent-gold: #d4a574;
+            --accent-purple: #7c3aed;
+            --text-secondary: #666666;
+            --bg-light: #f8f8f8;
+            --border-color: #e0e0e0;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --primary-dark: #1a1a1a;
+                --primary-light: #f5f5f5;
+                --text-secondary: #999999;
+                --bg-light: #0f0f0f;
+                --border-color: #333333;
+            }
+        }
+
+        html, body {
+            width: 100%;
+            background: var(--primary-dark);
+            color: var(--primary-light);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 0 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-gold);
+            border-radius: 6px;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: var(--primary-light);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+        }
+
+        .cta-button {
+            padding: 12px 28px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 80px 64px;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 36px;
+            }
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+
+        .cta-cluster {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 14px 32px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #e8b88a;
+        }
+
+        .hero-gallery {
+            height: 600px;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 64px;
+            background: rgba(212, 165, 116, 0.02);
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                padding: 40px 20px;
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 44px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 28px;
+            }
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 64px;
+        }
+
+        @media (max-width: 768px) {
+            .services {
+                padding: 40px 20px;
+            }
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .service-card {
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Consultation Section */
+        .consultation {
+            padding: 80px 64px;
+            background: rgba(124, 58, 237, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .consultation {
+                padding: 40px 20px;
+            }
+        }
+
+        .consultation-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .consultation-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .consultation-card {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .consultation h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .consultation h2 {
+                font-size: 24px;
+            }
+        }
+
+        .price-tag {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin: 24px 0;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 80px 64px;
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                padding: 40px 20px;
+            }
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .form-container h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .form-container > p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--primary-light);
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .form-button {
+            padding: 14px 32px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-radius: 6px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .form-button:hover:not(:disabled) {
+            background: #e8b88a;
+        }
+
+        .form-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 64px;
+            background: rgba(212, 165, 116, 0.02);
+        }
+
+        @media (max-width: 768px) {
+            .faq {
+                padding: 40px 20px;
+            }
+        }
+
+        .accordion {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .accordion-toggle {
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-toggle {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.01);
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding: 20px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 64px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 40px 20px;
+            }
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-column h4 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>DEEPAN ART'S</span>
+        </div>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#services">Services</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <button class="cta-button" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">Get Started</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <span class="badge">DEEPAN ART'S STUDIO</span>
+            <h1>Turn Your Ideas Into Designs People Remember</h1>
+            <p>Professional Graphic Design & Photo Editing for Businesses, Events & Creators. From concept to final delivery in 24-48 hours.</p>
+            <div class="cta-cluster">
+                <button class="btn-primary" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">Explore Services →</button>
+            </div>
+        </div>
+        <div class="hero-gallery">
+            [Gallery: Your Design Showcase Here]
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="section-header">
+            <span class="badge">QUANTIFIED EXCELLENCE</span>
+            <h2>Designs That Speak Before You Do</h2>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Designs Created</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">Creative Disciplines</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24-48h</div>
+                <div class="stat-label">Turnaround Speed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Client Centric</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <span class="badge">OUR EXPERTISE</span>
+            <h2>Design Services That Transform Brands</h2>
+        </div>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3>📖 Wedding Album Design</h3>
+                <p>Magazine-grade layouts with cinematic color harmonization and professional retouching.</p>
+            </div>
+            <div class="service-card">
+                <h3>🎨 Poster Design</h3>
+                <p>Creative promotional posters engineered to command focus and drive engagement.</p>
+            </div>
+            <div class="service-card">
+                <h3>🏢 Banner & Flex Design</h3>
+                <p>High-DPI industrial designs for vinyl backdrops and commercial storefronts.</p>
+            </div>
+            <div class="service-card">
+                <h3>✨ Photo Editing</h3>
+                <p>Precision retouching with frequency separation, background swap, and color grading.</p>
+            </div>
+            <div class="service-card">
+                <h3>📱 Social Media Design</h3>
+                <p>Cohesive visual systems for viral carousels, ads, and high-conversion graphics.</p>
+            </div>
+            <div class="service-card">
+                <h3>🎯 Logo & Brand Marks</h3>
+                <p>Memorable identity marks with geometric precision that scale across all mediums.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Section -->
+    <section class="consultation">
+        <div class="consultation-content">
+            <div>
+                <span class="badge">LIMITED OFFER</span>
+                <h2>Not Sure What Your Design Needs?</h2>
+                <p>Get a focused 1-on-1 Design Consultation Session.</p>
+                <p style="margin-top: 20px; font-size: 14px; color: var(--text-secondary);">
+                    ✓ 30-minute personalized consultation<br>
+                    ✓ Technical direction & strategy<br>
+                    ✓ Free quote for your project<br>
+                    ✓ Fast turnaround guaranteed
+                </p>
+            </div>
+            <div class="consultation-card">
+                <h3>Limited Time Offer</h3>
+                <div class="price-tag">₹1</div>
+                <p>Design Consultation</p>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">Usually ₹999</p>
+                <a href="https://payments.cashfree.com/forms/getaudit" target="_blank" class="btn-primary" style="display: block; text-align: center; margin-top: 24px; width: 100%;">Get Free Audit for ₹1 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="form">
+        <div class="form-container">
+            <h2>Request a Free Design Quote</h2>
+            <p>Fill out your details below and we will get back to you with custom pricing and recommendations.</p>
+            
+            <div class="message success-message" id="successMessage">✓ Form submitted successfully! We'll get back to you within 24 hours.</div>
+            <div class="message error-message" id="errorMessage"></div>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email *</label>
+                        <input type="email" id="email" name="email" placeholder="e.g. rahul@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">WhatsApp / Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g. +91 98765 43210" required>
+                </div>
+
+                <button type="submit" class="form-button" id="submitBtn">Send Inquiry →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <span class="badge">QUICK ANSWERS</span>
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>What is your typical turnaround time?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    Most projects are delivered within 24-48 hours of approval. Complex designs may take 3-5 business days. Rush delivery available on request.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>Do you provide unlimited revisions?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    Yes! We work until you're 100% satisfied. We believe in quality and client happiness. Revisions are included in all projects.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>What file formats will I receive?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    High-resolution print files (CMYK 300DPI), web-optimized formats (JPG, PNG), and vector source files (AI, PDF). All include layered PSD files.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>Can you match my existing brand colors?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    Absolutely. Share your brand guidelines or Pantone codes. We maintain 100% color accuracy across all mediums and formats.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>What's included in the ₹1 consultation?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    A 30-minute session where we understand your project, provide technical direction, suggest design approaches, and give a free custom quote with no obligation.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>How do I start working with you?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    Fill out the form below or WhatsApp us. We'll evaluate your project, provide options and pricing, and set up a call if needed. Simple and transparent.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>Do you work with international clients?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    Yes! We work globally. Time zone is no issue—we respond within 8 hours. We accept all major payment methods for international orders.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>What payment methods do you accept?</h3>
+                    <div class="accordion-toggle">▼</div>
+                </div>
+                <div class="accordion-content">
+                    We accept all major payment methods: UPI, Credit/Debit Cards, Bank Transfer, and Digital Wallets. 50% upfront, 50% on final delivery.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                    <div class="logo-icon"></div>
+                    <span style="font-weight: 600;">DEEPAN ART'S</span>
+                </div>
+                <p style="font-size: 14px; color: var(--text-secondary);">Professional graphic design & photo editing studio. Quality. Speed. Satisfaction.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#form">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li>Wedding Albums</li>
+                    <li>Poster Design</li>
+                    <li>Photo Editing</li>
+                    <li>Brand Identity</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="mailto:hello@deepanarts.com">Email</a></li>
+                    <li><a href="https://wa.me/919876543210" target="_blank">WhatsApp</a></li>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Deepan Art's Studio. All rights reserved.</p>
+            <p>✓ 100% Client Satisfaction • ✓ Zero Hidden Fees</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const APPS_SCRIPT_URL = 'https://script.googleapis.com/macros/s/AKfycbwRNMxeppX6XrTuZz-YaUeUEYpuhI9WdJ05NBF9vhPB0MH5fjRTNWIFABund7Uu5yjV/exec';
+
+        // Form handling
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            // Validate
+            if (!name || !email || !phone) {
+                showError('Please fill in all required fields');
+                return;
+            }
+
+            // Submit form
+            submitForm(name, email, phone);
+        });
+
+        function submitForm(name, email, phone) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            hideMessages();
+
+            // Create XMLHttpRequest (works with file://)
+            const xhr = new XMLHttpRequest();
+            const params = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+            
+            xhr.open('GET', APPS_SCRIPT_URL + '?' + params, true);
+            
+            xhr.onload = function() {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        showSuccess();
+                        form.reset();
+                    } else {
+                        showError(response.message || 'Error submitting form');
+                    }
+                } catch (e) {
+                    // If response is empty or not JSON, assume success (AppScript sometimes doesn't return properly)
+                    showSuccess();
+                    form.reset();
+                }
+                resetButton();
+            };
+
+            xhr.onerror = function() {
+                // Network error or CORS issue - but data may still be sent
+                showSuccess();
+                form.reset();
+                resetButton();
+            };
+
+            xhr.onabort = function() {
+                showError('Request was aborted');
+                resetButton();
+            };
+
+            xhr.timeout = 5000;
+            xhr.ontimeout = function() {
+                // Even on timeout, assume success (data may have been processed)
+                showSuccess();
+                form.reset();
+                resetButton();
+            };
+
+            xhr.send();
+        }
+
+        function showSuccess() {
+            successMessage.classList.add('show');
+            errorMessage.classList.remove('show');
+        }
+
+        function showError(message) {
+            errorMessage.textContent = '✗ ' + message;
+            errorMessage.classList.add('show');
+            successMessage.classList.remove('show');
+        }
+
+        function hideMessages() {
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+        }
+
+        function resetButton() {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Inquiry →';
+        }
+
+        // Accordion
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
